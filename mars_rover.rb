@@ -2,14 +2,19 @@ class MarsRover
   @@orientation_number_map = { "N"  => 1, "W" => 2, "S" => 3, "E" => 4 }
   @@number_orientation_map = {  1 => "N", 2 => "W", 3 => "S" , 4 => "E" }
   
-  attr_accessor :x_coordinate, :y_coordinate, :orientation, :orientation_number
+  attr_accessor :x_coordinate, :y_coordinate, :orientation, :orientation_number, :y_coordinate_lower_limit, :x_coordinate_lower_limit, :x_coordinate_upper_limit, :y_coordinate_upper_limit
 
-  def initialize(position)
+  def initialize(position, limit=[5,5])
     self.x_coordinate = position[:coordinates][0];
     self.y_coordinate = position[:coordinates][1];
     self.orientation = position[:orientation];
     self.orientation_number =  @@orientation_number_map[orientation];
+    self.y_coordinate_lower_limit = 0
+    self.x_coordinate_lower_limit = 0
+    self.x_coordinate_upper_limit = limit[0]
+    self.y_coordinate_upper_limit = limit[1]
   end
+  
   
   def coordinates
     [x_coordinate, y_coordinate]
@@ -50,13 +55,22 @@ class MarsRover
   
   
   def move_sideways
-    self.x_coordinate += 1 if orientation == "W"
-    self.x_coordinate -= 1 if orientation == "E"
+    unless x_coordinate == x_coordinate_upper_limit
+      self.x_coordinate += 1 if orientation == "W"
+    end
+    unless  x_coordinate == x_coordinate_lower_limit
+      self.x_coordinate -= 1 if orientation == "E"
+    end
   end
   
+  
   def move_front_or_back
-    self.y_coordinate += 1 if orientation == "N"
-    self.y_coordinate -= 1 if orientation == "S"
+    unless y_coordinate == y_coordinate_upper_limit
+      self.y_coordinate += 1 if orientation == "N"
+    end
+    unless y_coordinate == y_coordinate_lower_limit
+      self.y_coordinate -= 1 if orientation == "S"
+    end
   end
   
 end

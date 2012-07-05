@@ -94,37 +94,37 @@ describe MarsRover do
     
     context 'current facing north' do
       it "should be moving towards north when commanded" do
-        position = { :coordinates => [0,0], :orientation => "N"}
+        position = { :coordinates => [1,1], :orientation => "N"}
         @rover = MarsRover.new(position);
         @rover.move
-        @rover.coordinates.should eq([0,1])
+        @rover.coordinates.should eq([1,2])
       end      
     end
     
     context 'current facing south' do
       it "should be moving towards south when commanded" do
-        position = { :coordinates => [0,0], :orientation => "S"}
+        position = { :coordinates => [1,1], :orientation => "S"}
         @rover = MarsRover.new(position);
         @rover.move
-        @rover.coordinates.should eq([0,-1])        
+        @rover.coordinates.should eq([1,0])        
       end
     end
     
     context 'current facing east' do
       it "should be moving towards east when commanded" do
-        position = { :coordinates => [0,0], :orientation => "E"}
+        position = { :coordinates => [1,1], :orientation => "E"}
         @rover = MarsRover.new(position);
         @rover.move
-        @rover.coordinates.should eq([-1,0])                
+        @rover.coordinates.should eq([0,1])                
       end
     end
     
     context 'current facing west' do
       it "should be moving towards south when commanded" do
-        position = { :coordinates => [0,0], :orientation => "W"}
+        position = { :coordinates => [1,1], :orientation => "W"}
         @rover = MarsRover.new(position);
         @rover.move
-        @rover.coordinates.should eq([1,0])        
+        @rover.coordinates.should eq([2,1])        
       end
     end
   end  

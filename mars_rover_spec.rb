@@ -127,5 +127,39 @@ describe MarsRover do
         @rover.coordinates.should eq([2,1])        
       end
     end
+    
+    context "with upperlimit/lowerlimit" do
+      it "shouldn't move north" do
+        position = { :coordinates => [1,5], :orientation => "N"}
+        @rover = MarsRover.new(position, [5,5]);
+        @rover.move
+        @rover.move
+        @rover.coordinates.should eq([1,5])                
+      end
+      
+      it "shouldn't move south" do
+        position = { :coordinates => [1,0], :orientation => "S"}
+        @rover = MarsRover.new(position, [5,5]);
+        @rover.move
+        @rover.move
+        @rover.coordinates.should eq([1,0])                
+      end
+      
+      it "shouldn't move west" do
+        position = { :coordinates => [5,1], :orientation => "W"}
+        @rover = MarsRover.new(position, [5,5]);
+        @rover.move
+        @rover.move
+        @rover.coordinates.should eq([5,1])                
+      end
+      
+      it "shouldn't move east" do
+        position = { :coordinates => [0,1], :orientation => "E"}
+        @rover = MarsRover.new(position, [5,5]);
+        @rover.move
+        @rover.move
+        @rover.coordinates.should eq([0,1])                
+      end      
+    end
   end  
 end

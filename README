@@ -1,0 +1,21 @@
+
+Project in Ruby 1.9.3 
+
+using following vs for rspec
+
+rspec (2.10.0)
+rspec-core (2.10.1)
+rspec-expectations (2.10.0)
+rspec-mocks (2.10.1)
+
+
+
+To run tests simply 
+
+"rspec *.rb"
+
+To run the test cases create file with the input, similar to the "runner_file.txt" and
+
+type 
+
+ruby app.rb runner_file.txt 

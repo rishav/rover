@@ -1,6 +1,6 @@
 class MarsRover
-  @@orientation_number_map = { "N"  => 1, "W" => 2, "S" => 3, "E" => 4 }
-  @@number_orientation_map = {  1 => "N", 2 => "W", 3 => "S" , 4 => "E" }
+  @@orientation_number_map = { "N"  => 1, "E" => 2, "S" => 3, "W" => 4 }
+  @@number_orientation_map = {  1 => "N", 2 => "E", 3 => "S" , 4 => "W" }
 
   attr_reader :orientation, :orientation_number
   
@@ -15,6 +15,13 @@ class MarsRover
     @y_coordinate_upper_limit = limit[1]
   end
   
+  def self.create_from_line_input(line_input, upper_limits)
+    rover_coordinates_and_orientation = line_input.gsub("\n", "").gsub("\r","").split(" ")      
+    coordinates = rover_coordinates_and_orientation[0..1].map { |chr| chr.to_i }
+    position = { :coordinates => coordinates , :orientation => rover_coordinates_and_orientation[2]}
+    rover = self.new(position, upper_limits)
+    return rover
+  end
   
   def coordinates
     [@x_coordinate, @y_coordinate]
@@ -56,10 +63,10 @@ class MarsRover
   
   def move_sideways
     unless @x_coordinate == @x_coordinate_upper_limit
-      @x_coordinate += 1 if @orientation == "W"
+      @x_coordinate += 1 if @orientation == "E"
     end
     unless  @x_coordinate == @x_coordinate_lower_limit
-      @x_coordinate -= 1 if @orientation == "E"
+      @x_coordinate -= 1 if @orientation == "W"
     end
   end
   
@@ -71,6 +78,21 @@ class MarsRover
     unless @y_coordinate == @y_coordinate_lower_limit
       @y_coordinate -= 1 if @orientation == "S"
     end
+  end
+  
+  def position_and_orientation
+    "#{@x_coordinate} #{@y_coordinate} #{@orientation}"
+  end
+  
+  
+  def process_command(command_string)
+    command_string.each_char do |command|
+      if command == "M"
+        move
+      else
+        turn(command)
+      end
+    end        
   end
   
 end
